@@ -17,6 +17,7 @@ void setup(){
 
 void loop(){
   char M;
+
   char data;
   for(;;){
     if(Serial.available()){
