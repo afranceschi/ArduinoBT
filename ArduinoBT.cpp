@@ -1,22 +1,40 @@
 // Do not remove the include below
 #include "ArduinoBT.h"
+#include "SoftwareSerial.h"
 
+SoftwareSerial bt(4,5);
 
-//The setup function is called once at startup of the sketch
-void setup()
-{
-// Add your initialization code here
+void setup(){
+	pinMode(12,OUTPUT);
+	digitalWrite(12,LOW);
+  delay(3000);
+  Serial.begin(9600);
+  bt.begin(9600);
+  Serial.println("Bluetooth Iniciado.");
+  delay(1000);
 
-	pinMode(13,OUTPUT);
 }
 
-// The loop function is called in an endless loop
-void loop()
-{
+void loop(){
+  char M;
+  char data;
+  for(;;){
+    if(Serial.available()){
+    	data = Serial.read();
+    	bt.print(data);
+    	if(data == '\r')Serial.println(""); else Serial.print(data);
+    }
+    if(bt.available()){
+    	M = bt.read();
+    	Serial.write(M);
+    	if(M == 'A'){
+    		digitalWrite(13,HIGH);
+    	}
+    	if(M == 'B'){
+    		digitalWrite(13,LOW);
+    	}
+    	M = 0;
+    }
+  }
 
-	for(;;){
-		digitalWrite(13,!digitalRead(13));
-		delay(1000);
-	}
-//Add your repeated code here
 }
