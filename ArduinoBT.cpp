@@ -6,10 +6,17 @@
 void setup()
 {
 // Add your initialization code here
+
+	pinMode(13,OUTPUT);
 }
 
 // The loop function is called in an endless loop
 void loop()
 {
+
+	for(;;){
+		digitalWrite(13,!digitalRead(13));
+		delay(1000);
+	}
 //Add your repeated code here
 }
